@@ -26,9 +26,19 @@ const UpdateMovie = props => {
     }, [id])
 
     const handleChanges = e => {
+        e.persist()
+        let formValue = e.target.value
+        if(e.target.name === 'metascore') {
+            formValue = parseInt(formValue, 10)
+        }
+
+        if(e.target.name === 'stars') {
+            formValue = formValue.split(',')
+        }
+
         setMovie({
             ...movie,
-            [e.target.name]: e.target.value
+            [e.target.name]: formValue
         })
     }
 
@@ -81,7 +91,7 @@ const UpdateMovie = props => {
                     onChange={handleChanges}
                     /><br />
                 </label>
-                {/* <label> Stars:<br />
+                <label> Stars:<br />
                 {movie.stars.map(star => {
                     return (
                         <input 
@@ -93,7 +103,7 @@ const UpdateMovie = props => {
                         />
                     )
                 })}
-                </label> */}
+                </label>
                 <button>Update</button>
             </form>
         </div>
